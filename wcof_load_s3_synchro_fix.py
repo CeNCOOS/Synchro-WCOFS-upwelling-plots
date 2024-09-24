@@ -19,8 +19,10 @@ def wcof_load_s3_synchro_fix(atime): # don't need offset, numbs, my or my1
     urlpre='s3://noaa-nos-ofs-pds/wcofs/netcdf/'
     # below is the string for full 3-d data but we only want 2-d data here.
     #filestr='nos.wcofs.fields.'
-    filestr='nos.wcofs.2ds.'
-    filepost='.t03z.nc'
+    filestr='wcofs.t03z.'
+    #filestr='nos.wcofs.2ds.'
+    filepost='.2ds.'
+    #filepost='.t03z.nc'
     # we have an issue that nos.wcofs.2ds.n001.20220913.t03z.nc is not at time 001 but at time 2022-09-13T04:00:00
     #
     # compute the parts so we can construct the url and filename
@@ -54,7 +56,8 @@ def wcof_load_s3_synchro_fix(atime): # don't need offset, numbs, my or my1
         else:
             forehour=forns+'0'+str(zhours)
         # This is for the Amazon s3 site
-        urlstr=urlpre+syear+smonth+'/'+filestr+forehour+'.'+syear+smonth+sday+filepost
+	urlstr=urlpre+syear+smonth+'/'+filestr+syear+smonth+sday+filepost+forehour+'.nc'
+        #urlstr=urlpre+syear+smonth+'/'+filestr+forehour+'.'+syear+smonth+sday+filepost
         # show the filename string we are trying to load
         print(urlstr)
         # open the file on S3
